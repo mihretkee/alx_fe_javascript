@@ -213,6 +213,26 @@ async function fetchQuotesFromServer() {
   }
 }
 
+// === Send local quotes to server with POST (simulate) ===
+async function sendQuotesToServer() {
+  try {
+    const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(quotes)
+    });
+
+    if (!response.ok) throw new Error("Failed to send quotes to server");
+
+    const data = await response.json();
+    console.log("Server response after POST:", data);
+  } catch (error) {
+    console.error("Error sending quotes to server:", error);
+  }
+}
+
 // === Sync local quotes with server quotes, server takes precedence ===
 async function syncDataWithServer() {
   syncNotification.textContent = "Syncing data with server...";
@@ -241,6 +261,9 @@ async function syncDataWithServer() {
   populateCategories();
   filterQuotes();
 
+  // Send local quotes back to server (simulate POST)
+  await sendQuotesToServer();
+
   syncNotification.textContent = `Sync complete. Conflicts resolved: ${conflictsResolved}`;
   setTimeout(() => (syncNotification.textContent = ""), 5000);
 }
@@ -258,6 +281,7 @@ filterQuotes();
 
 // Optional: periodic syncing every 30 seconds
 setInterval(syncDataWithServer, 30000);
+
 
 
 
