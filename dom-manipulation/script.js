@@ -233,8 +233,8 @@ async function sendQuotesToServer() {
   }
 }
 
-// === Sync local quotes with server quotes, server takes precedence ===
-async function syncDataWithServer() {
+// === Sync quotes function required by school ===
+async function syncQuotes() {
   syncNotification.textContent = "Syncing data with server...";
 
   const serverQuotes = await fetchQuotesFromServer();
@@ -272,7 +272,7 @@ async function syncDataWithServer() {
 newQuoteBtn.addEventListener("click", showRandomQuote);
 exportBtn.addEventListener("click", exportQuotesAsJSON);
 importFileInput.addEventListener("change", importFromJsonFile);
-syncBtn.addEventListener("click", syncDataWithServer);
+syncBtn.addEventListener("click", syncQuotes);
 
 populateCategories();
 createAddQuoteForm();
@@ -280,7 +280,8 @@ restoreLastQuote();
 filterQuotes();
 
 // Optional: periodic syncing every 30 seconds
-setInterval(syncDataWithServer, 30000);
+setInterval(syncQuotes, 30000);
+
 
 
 
