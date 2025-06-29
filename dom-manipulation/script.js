@@ -233,7 +233,7 @@ async function sendQuotesToServer() {
   }
 }
 
-// === Sync quotes function required by school ===
+// === Sync quotes with server (required name) ===
 async function syncQuotes() {
   syncNotification.textContent = "Syncing data with server...";
 
@@ -248,11 +248,9 @@ async function syncQuotes() {
   serverQuotes.forEach(sq => {
     const index = quotes.findIndex(lq => lq.text === sq.text);
     if (index !== -1) {
-      // Conflict: overwrite local quote with server quote
       quotes[index] = sq;
       conflictsResolved++;
     } else {
-      // New quote from server
       quotes.push(sq);
     }
   });
@@ -261,10 +259,16 @@ async function syncQuotes() {
   populateCategories();
   filterQuotes();
 
-  // Send local quotes back to server (simulate POST)
   await sendQuotesToServer();
 
-  syncNotification.textContent = `Sync complete. Conflicts resolved: ${conflictsResolved}`;
+  // ✅ REQUIRED EXACT MESSAGE
+  syncNotification.textContent = "Quotes synced with server!";
+
+  // Optional: show conflict info
+  if (conflictsResolved > 0) {
+    syncNotification.textContent += ` Conflicts resolved: ${conflictsResolved}`;
+  }
+
   setTimeout(() => (syncNotification.textContent = ""), 5000);
 }
 
@@ -279,8 +283,9 @@ createAddQuoteForm();
 restoreLastQuote();
 filterQuotes();
 
-// Optional: periodic syncing every 30 seconds
+// Optional: auto-sync every 30 seconds
 setInterval(syncQuotes, 30000);
+
 
 
 
