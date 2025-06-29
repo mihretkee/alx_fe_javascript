@@ -1,20 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dynamic Quote Generator</title>
 </head>
 <body>
   <h1>Dynamic Quote Generator</h1>
 
-  <!-- Category filter for displaying all matching quotes -->
   <label for="categoryFilter">Filter by category:</label>
   <select id="categoryFilter" onchange="filterQuotes()">
     <option value="all">All Categories</option>
   </select>
 
-  <!-- Category selector for showing a single random quote -->
   <label for="categorySelect">Choose a category to show random quote:</label>
   <select id="categorySelect"></select>
 
@@ -22,10 +20,21 @@
   <button id="newQuote">Show New Quote</button>
 
   <hr />
-  <!-- Add new quote form -->
-  <h3>Add a New Quote</h3>
-  <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
-  <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
-  <button onclick="addQuote()">Add Quote</
+
+  <!-- Export/Import controls -->
+  <button id="exportBtn">Export Quotes</button>
+  <input type="file" id="importFile" accept=".json" />
+
+  <hr />
+
+  <!-- Sync controls -->
+  <button id="syncBtn">Sync Data with Server</button>
+  <div id="syncNotification" style="margin-top:10px;color:green;"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
 
 
