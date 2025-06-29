@@ -198,7 +198,7 @@ function importFromJsonFile(event) {
 }
 
 // === Simulated server fetch for quotes ===
-async function fetchServerQuotes() {
+async function fetchQuotesFromServer() {
   try {
     const res = await fetch("https://jsonplaceholder.typicode.com/posts?_limit=5");
     if (!res.ok) throw new Error("Failed to fetch server data");
@@ -217,7 +217,7 @@ async function fetchServerQuotes() {
 async function syncDataWithServer() {
   syncNotification.textContent = "Syncing data with server...";
 
-  const serverQuotes = await fetchServerQuotes();
+  const serverQuotes = await fetchQuotesFromServer();
   if (serverQuotes.length === 0) {
     syncNotification.textContent = "No server data fetched.";
     return;
@@ -258,6 +258,7 @@ filterQuotes();
 
 // Optional: periodic syncing every 30 seconds
 setInterval(syncDataWithServer, 30000);
+
 
 
 
